@@ -68,13 +68,13 @@ public class CharaController : MonoBehaviour
             
             if (direction > 0) // climb up
             {
-                var stairTop = stair.GetStairEnds()[0];
+                var stairTop = stair.TopPosition;
                 transform.position = stairTop;
 
             }
             else if (direction < 0) // climb down
             {
-                var stairBottom = stair.GetStairEnds()[1];
+                var stairBottom = stair.BottomPosition;
                 transform.position = stairBottom;
             }
             

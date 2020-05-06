@@ -6,6 +6,11 @@ using Vector2 = UnityEngine.Vector2;
 
 public class Stairs : MonoBehaviour
 {
+    [SerializeField] [Tooltip("The child sprite containing the top step of the stairs")] 
+                      Transform topChild;
+    [SerializeField] [Tooltip("The child sprite containing the bottom step of the stairs")]
+                      Transform bottomChild;
+
     Vector2 topPos;
     Vector2 bottomPos;
 
@@ -24,6 +29,7 @@ public class Stairs : MonoBehaviour
     /// </summary>
     private void SetStairEnds()
     {
+        /* -- decided to serialise these.
         Transform topChild = transform;
         Transform bottomChild = transform;
 
@@ -38,6 +44,7 @@ public class Stairs : MonoBehaviour
                 bottomChild = child;
             }
         }
+        */
 
         float topY = topChild.transform.position.y +
                      topChild.GetComponent<SpriteRenderer>().bounds.extents.y;
@@ -51,13 +58,8 @@ public class Stairs : MonoBehaviour
                                 bottomY);
     }
 
-    /// <summary>
-    /// Returns an array of two Verctor2.
-    /// - position of the top of the staircase
-    /// - position of the bottom of the staircase
-    /// </summary>
-    /// <returns></returns>
-    public Vector2[] GetStairEnds() { return new Vector2[] { topPos, bottomPos }; }
+    public Vector2 TopPosition { get { return topPos; } }
+    public Vector2 BottomPosition { get { return bottomPos; } }
 
 
 }
