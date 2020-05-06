@@ -83,6 +83,7 @@ namespace TicToc.Mechanics
 
         private void UpdateMesh()
         {
+            bool isBackwards = Quaternion.Angle(transform.rotation, transform.parent.rotation) > 90;
             mesh.vertices = vertices.ToArray();
 
             List<int> triangles = new List<int>();
@@ -90,8 +91,16 @@ namespace TicToc.Mechanics
             for (int i = 1; i < vertices.Count() - 1; ++i)
             {
                 triangles.Add(0);
-                triangles.Add(i);
-                triangles.Add(i + 1);
+                if (isBackwards)
+                {
+                    triangles.Add(i + 1);
+                    triangles.Add(i);
+                }
+                else
+                {
+                    triangles.Add(i);
+                    triangles.Add(i + 1);
+                }
             }
 
             mesh.triangles = triangles.ToArray();
