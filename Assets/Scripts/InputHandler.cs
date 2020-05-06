@@ -23,10 +23,12 @@ public class InputHandler : MonoBehaviour
         horInput = Input.GetAxis("Horizontal");
         verInput = Input.GetAxis("Vertical");
 
+
     }
 
     private void FixedUpdate()
     {
-        charaController.Move(horInput, verInput);
+        charaController.Move(horInput, 0);
+        if (verInput != 0) { charaController.ClimbStairs(verInput); }
     }
 }

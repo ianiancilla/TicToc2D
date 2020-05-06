@@ -10,12 +10,15 @@ public class CharaController : MonoBehaviour
     // cache
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
+    Collider2D charaCollider;
 
     // Start is called before the first frame update
     void Start()
     {
+        // cache
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        charaCollider = GetComponent<Collider2D>();
     }
 
     /// <summary>
@@ -48,4 +51,33 @@ public class CharaController : MonoBehaviour
         }
     }
 
+    public void ClimbStairs(float direction)
+    {
+        // ignore everything unless you're actually touching a stair
+        if (!charaCollider.IsTouchingLayers(LayerMask.GetMask("Stairs"))) { return; }
+        else
+        {
+            // check what object you are touching on the Stair layer
+            var stairColliders = new Collider2D[1];
+            var contactFilter = new ContactFilter2D();
+            contactFilter.useTriggers = true;
+            contactFilter.SetLayerMask(LayerMask.GetMask("Stairs"));
+            charaCollider.OverlapCollider(contactFilter, stairColliders);
+
+            var stair = stairColliders[0].gameObject.GetComponent<Stairs>();
+            
+            if (direction > 0) // climb up
+            {
+                var stairTop = stair.GetStairEnds()[0];
+                transform.position = stairTop;
+
+            }
+            else if (direction < 0) // climb down
+            {
+                var stairBottom = stair.GetStairEnds()[1];
+                transform.position = stairBottom;
+            }
+            
+        }
+    }
 }
