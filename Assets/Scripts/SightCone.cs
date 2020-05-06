@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,12 +18,18 @@ namespace TicToc.Mechanics
 
         private List<Vector3> rayDirections = new List<Vector3>();
         private float rayAngle;
+        private List<Vector3> vertices;
 
         private List<SightState> objectsInSight = new List<SightState>();
+
+        private Mesh mesh;
 
         private void Start()
         {
             rayAngle = sightAngle / sections;
+            mesh = new Mesh();
+            mesh.name = "SightCone";
+            GetComponent<MeshFilter>().mesh = mesh;
         }
 
         private void Update()
@@ -37,6 +44,7 @@ namespace TicToc.Mechanics
 
             RaycastHit2D hit;
             List<SightState> hitObjects = new List<SightState>();
+            vertices = new List<Vector3>() { transform.localPosition };
 
             foreach (Vector3 direction in rayDirections)
             {
@@ -47,7 +55,9 @@ namespace TicToc.Mechanics
                     distance = hit.distance;
                 }
 
-                Debug.DrawRay(transform.position, direction * distance, Color.yellow, Time.deltaTime);
+                vertices.Add(transform.InverseTransformPoint(transform.position + (direction * distance)));
+
+                //Debug.DrawRay(transform.position, direction * distance, Color.yellow, Time.deltaTime);
 
                 foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(transform.position, direction, distance))
                 {
@@ -67,6 +77,24 @@ namespace TicToc.Mechanics
 
                 objectsInSight = hitObjects;
             }
+
+            UpdateMesh();
+        }
+
+        private void UpdateMesh()
+        {
+            mesh.vertices = vertices.ToArray();
+
+            List<int> triangles = new List<int>();
+
+            for (int i = 1; i < vertices.Count() - 1; ++i)
+            {
+                triangles.Add(0);
+                triangles.Add(i);
+                triangles.Add(i + 1);
+            }
+
+            mesh.triangles = triangles.ToArray();
         }
     }
 }
