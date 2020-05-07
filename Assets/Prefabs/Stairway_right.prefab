@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 7177296953410945249}
   - component: {fileID: 7177296953410945248}
   m_Layer: 8
-  m_Name: Stairway
+  m_Name: Stairway_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,6 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b266ae1e3463f8e4eaa8a949a315939e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topChild: {fileID: 7177296953935358373}
+  bottomChild: {fileID: 7177296953834854341}
 --- !u!61 &7177296953410945249
 BoxCollider2D:
   m_ObjectHideFlags: 0
