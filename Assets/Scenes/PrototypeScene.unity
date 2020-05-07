@@ -4237,6 +4237,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 889027383015616080, guid: 43ccccd5d7f53f241a9858c506427cea,
+        type: 3}
+      propertyPath: zoomedOutSize
+      value: 8.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1619635603325795345, guid: 43ccccd5d7f53f241a9858c506427cea,
         type: 3}
       propertyPath: m_BoundingShape2D
@@ -4247,6 +4252,16 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1607009683}
+    - target: {fileID: 1619635603325795350, guid: 43ccccd5d7f53f241a9858c506427cea,
+        type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 4.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619635603325795351, guid: 43ccccd5d7f53f241a9858c506427cea,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.973547
+      objectReference: {fileID: 0}
     - target: {fileID: 1619635603531218722, guid: 43ccccd5d7f53f241a9858c506427cea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4306,6 +4321,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cameras
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619635604138932349, guid: 43ccccd5d7f53f241a9858c506427cea,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619635604138932349, guid: 43ccccd5d7f53f241a9858c506427cea,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.973547
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619635604138932354, guid: 43ccccd5d7f53f241a9858c506427cea,
+        type: 3}
+      propertyPath: orthographic size
+      value: 7.612496
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43ccccd5d7f53f241a9858c506427cea, type: 3}
