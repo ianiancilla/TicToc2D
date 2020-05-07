@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TicToc.Mechanics
 {
     [RequireComponent(typeof(SightState))]
-    [RequireComponent(typeof(MeshRenderer))]
     public class TestSightState : MonoBehaviour
     {
         SightState sightState;
-        MeshRenderer meshRenderer;
 
         private void Start()
         {
             sightState = GetComponent<SightState>();
-            meshRenderer = GetComponent<MeshRenderer>();
             VisualizeState(false);
             sightState.SightStateChanged += OnSightStateChanged;
         }
@@ -29,11 +23,11 @@ namespace TicToc.Mechanics
         {
             if(state)
             {
-                meshRenderer.material.color = Color.green;
+                Debug.LogFormat("{0} is in sight!", gameObject.name);
             }
             else
             {
-                meshRenderer.material.color = Color.red;
+                Debug.LogFormat("{0} is out of sight!", gameObject.name);
             }
         }
     }

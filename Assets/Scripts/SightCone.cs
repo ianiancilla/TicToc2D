@@ -57,15 +57,16 @@ namespace TicToc.Mechanics
 
                 vertices.Add(transform.InverseTransformPoint(transform.position + (direction * distance)));
 
-                //Debug.DrawRay(transform.position, direction * distance, Color.yellow, Time.deltaTime);
-
                 foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(transform.position, direction, distance))
                 {
                     SightState sightState = raycastHit.collider.gameObject.GetComponent<SightState>();
                     if (sightState != null)
                     {
                         sightState.SetSightState(true);
-                        hitObjects.Add(sightState);
+                        if (hitObjects.Contains(sightState) == false)
+                        {
+                            hitObjects.Add(sightState);
+                        }
                     }
                 }
 
