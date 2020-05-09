@@ -41,10 +41,12 @@ namespace TicToc.Mechanics
 
             if(activeTimeScaleObjects.Count() == 0)
             {
+                Debug.Log("Time stopped.");
                 SetTimeScale(0);
             }
             else
             {
+                Debug.LogFormat("Time flowing at speed {0}.", activeTimeScaleObjects.Max(timeScaleObject => timeScaleObject.TimeScale));
                 SetTimeScale(activeTimeScaleObjects.Max(timeScaleObject => timeScaleObject.TimeScale));
             }
         }

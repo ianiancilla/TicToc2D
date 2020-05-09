@@ -17,7 +17,7 @@ namespace TicToc.Mechanics
             }
 
             InSight = inSight;
-            SightStateChanged?.Invoke(this, new SightStateEventArgs(inSight));
+            SightStateChanged?.Invoke(this, new SightStateEventArgs(InSight));
         }
     }
 }

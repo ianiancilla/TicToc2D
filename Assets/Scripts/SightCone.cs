@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -42,11 +41,33 @@ namespace TicToc.Mechanics
                 rayDirections.Add(Quaternion.AngleAxis(startingAngle + i * rayAngle, transform.right) * transform.forward);
             }
 
-            RaycastHit2D hit;
-            List<SightState> hitObjects = new List<SightState>();
             vertices = new List<Vector3>() { transform.localPosition };
 
-            foreach (Vector3 direction in rayDirections)
+            IEnumerable<SightState> seenObjects = GetObjectsInSight(rayDirections, sightRange);
+
+            foreach(SightState seenObject in GetObjectsInSight(rayDirections, sightRange))
+            {
+                seenObject.SetSightState(true);
+            }
+
+            foreach(SightState sightState in objectsInSight)
+            {
+                if (seenObjects.Contains(sightState) == false)
+                {
+                    sightState.SetSightState(false);
+                }
+            }
+
+            objectsInSight = new List<SightState>(seenObjects);
+
+            UpdateMesh();
+        }
+
+        private IEnumerable<SightState> GetObjectsInSight(IEnumerable<Vector3> directions, float sightRange)
+        {
+            List<SightState> hitObjects = new List<SightState>();
+            RaycastHit2D hit;
+            foreach (Vector3 direction in directions)
             {
                 float distance = sightRange;
 
@@ -55,6 +76,7 @@ namespace TicToc.Mechanics
                     distance = hit.distance;
                 }
 
+                // TODO get out of here
                 vertices.Add(transform.InverseTransformPoint(transform.position + (direction * distance)));
 
                 foreach (RaycastHit2D raycastHit in Physics2D.RaycastAll(transform.position, direction, distance))
@@ -62,24 +84,15 @@ namespace TicToc.Mechanics
                     SightState sightState = raycastHit.collider.gameObject.GetComponent<SightState>();
                     if (sightState != null)
                     {
-                        sightState.SetSightState(true);
                         if (hitObjects.Contains(sightState) == false)
                         {
                             hitObjects.Add(sightState);
                         }
                     }
                 }
-
-                IEnumerable<SightState> lostSight = objectsInSight.Where(sightState => hitObjects.Contains(sightState) == false);
-                foreach (SightState sightState in lostSight)
-                {
-                    sightState.SetSightState(false);
-                }
-
-                objectsInSight = hitObjects;
             }
 
-            UpdateMesh();
+            return hitObjects;
         }
 
         private void UpdateMesh()
